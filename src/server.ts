@@ -1,18 +1,22 @@
 import express from "express";
 import cors from "cors";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
+import {dbConfig} from "./database";
+import {config} from './config'
 
+
+dotenv.config();
+dbConfig.authenticate().then(() => console.log("connect to DB"))
+    .catch((err) => {
+        throw err;
+    });
 
 const app = express();
-dotenv.config();
-
-
-const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.options('*', cors());
 
 
-app.listen(port, () => {
-    console.log(`Listening port ${port}`)
+app.listen(config.PORT, () => {
+    console.log(`Listening port ${config.PORT}`)
 });
