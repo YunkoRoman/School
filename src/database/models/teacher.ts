@@ -3,7 +3,7 @@ import {TeacherStatic} from '../interfaces'
 
 export function TeacherFactory(sequelize: Sequelize): TeacherStatic {
 
-    return <TeacherStatic>sequelize.define("teacher", {
+    return <TeacherStatic>sequelize.define("teachers", {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,

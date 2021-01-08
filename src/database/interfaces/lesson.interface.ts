@@ -14,8 +14,8 @@ export interface ILessonAttributes {
 export interface LessonModel extends Model<ILessonAttributes>, ILessonAttributes {
 }
 
-export class Lesson extends Model<LessonModel, ILessonAttributes> {
-}
+// export class Lesson extends Model<LessonModel, ILessonAttributes> {
+// }
 
 export type LessonStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): LessonModel;

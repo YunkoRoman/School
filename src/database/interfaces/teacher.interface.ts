@@ -16,8 +16,8 @@ export interface ITeacherAttributes {
 export interface TeacherModel extends Model<ITeacherAttributes>, ITeacherAttributes {
 }
 
-export class Teacher extends Model<TeacherModel, ITeacherAttributes> {
-}
+// export class Teacher extends Model<TeacherModel, ITeacherAttributes> {
+// }
 
 export type TeacherStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): TeacherModel;

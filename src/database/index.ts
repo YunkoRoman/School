@@ -6,6 +6,9 @@ export const dbConfig = new sequelize.Sequelize(config.DB_NAME, config.DB_USER, 
     {
         host: config.DB_HOST,
         dialect: "mysql",
+        define: {
+            timestamps: false
+        }
 
     }
 );

@@ -10,8 +10,8 @@ export interface IClassroomAttributes {
 export interface ClassroomModel extends Model<IClassroomAttributes>, IClassroomAttributes {
 }
 
-export class Classroom extends Model<ClassroomModel, IClassroomAttributes> {
-}
+// export class Classroom extends Model<ClassroomModel, IClassroomAttributes> {
+// }
 
 export type ClassroomStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): ClassroomModel;

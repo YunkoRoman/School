@@ -5,5 +5,8 @@ import {teacherController} from '../../controller'
 const router = Router();
 
 router.post('/create', teacherController.addNewTeacher);
+router.get('/find/:id', teacherController.findTeacher);
+router.delete('/delete/:id', teacherController.deleteTeacher);
+router.put('/update', teacherController.updateTeacher);
 
-export const techerRouter = router;
+export const teacherRouter = router;
