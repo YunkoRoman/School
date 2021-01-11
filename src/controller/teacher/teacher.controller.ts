@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {Classroom, Lesson, Teacher, Teacher_workhours} from '../../database'
-import {ITeacherAttributes} from "../../database/interfaces";
-import {Op} from "sequelize";
+import {ITeacherAttributes, IteacherFilterAttributes} from "../../database/interfaces";
+import {teacherService} from "../../services/teacher";
 
 class TeacherController {
 
@@ -9,11 +9,11 @@ class TeacherController {
         try {
             const teacher: ITeacherAttributes = req.body;
 
-            await Teacher.create(teacher);
+            const createTeacher = await teacherService.addNewTeacher(teacher);
 
             res.json({
                 success: true,
-                msg: 'Teacher created'
+                msg: createTeacher
             })
 
         } catch (e) {
@@ -28,12 +28,9 @@ class TeacherController {
     async findTeacher(req: Request, res: Response, next: NextFunction) {
         try {
             const {id} = req.params;
+            const teacher_id = Number(id);
 
-            const teacher = await Teacher.findOne({
-                where: {
-                    id
-                }
-            });
+            const teacher = await teacherService.findTeacher(teacher_id);
 
             res.json({
                 success: true,
@@ -52,12 +49,8 @@ class TeacherController {
     async deleteTeacher(req: Request, res: Response, next: NextFunction) {
         try {
             const {id} = req.params;
-
-            await Teacher.destroy({
-                where: {
-                    id
-                }
-            });
+            const teacher_id = Number(id);
+            await teacherService.deleteTeacher(teacher_id);
 
             res.json({
                 success: true,
@@ -77,16 +70,18 @@ class TeacherController {
         try {
             const teacher: ITeacherAttributes = req.body;
 
-            const updTeacher = await Teacher.update(teacher, {
-                where: {
-                    id: teacher.id
-                }
-            });
-            res.json({
-                success: true,
-                msg: updTeacher
+            const result = await teacherService.updateTeacher(teacher);
+            if (result[0] === 1){
+                const updTeacher = await teacherService.findTeacher(teacher.id);
+                res.json({
+                    success: true,
+                    msg: updTeacher
+                })
+            } else
+                res.json({
+                success: false,
+                msg: 'Some error'
             })
-
         } catch (e) {
             next(e);
             res.json({
@@ -98,37 +93,9 @@ class TeacherController {
 
     async getTargetMathTeachers(req: Request, res: Response, next: NextFunction) {
         try {
-            const {startTime, endTime, day, subject, chatId, yearsOfExperience} = req.body;
+            const data: IteacherFilterAttributes = req.body;
 
-            const result = await Teacher_workhours.findAll({
-                include: [{
-                    model: Teacher,
-                    where: {
-                        yearsOfExperience: {
-                            [Op.gt]: yearsOfExperience
-                        }
-                    }
-                },
-                    {
-                        model: Lesson,
-                        where: {
-                            subject
-                        },
-                        include: [{
-                            model: Classroom,
-                            where: {
-                                chatId
-                            }
-                        }]
-                    }],
-                where: {
-                    timeStartLesson: {
-                        [Op.gte]: startTime,
-                        [Op.lte]: endTime
-                    },
-                    day
-                }
-            });
+            const result = await teacherService.teacherFilter(data);
             res.json({
                 success: true,
                 msg: result
