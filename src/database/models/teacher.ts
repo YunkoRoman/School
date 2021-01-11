@@ -18,7 +18,7 @@ export function TeacherFactory(sequelize: Sequelize): TeacherStatic {
         age: {
             type: DataTypes.STRING
         },
-        canTeachSubjects: {
+        canTeach_Subject: {
             type: DataTypes.STRING,
             allowNull: false,
         },

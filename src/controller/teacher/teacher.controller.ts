@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from "express";
-import {Teacher} from '../../database'
+import {Classroom, Lesson, Teacher, Teacher_workhours} from '../../database'
 import {ITeacherAttributes} from "../../database/interfaces";
+import {Op} from "sequelize";
 
 class TeacherController {
 
@@ -84,6 +85,53 @@ class TeacherController {
             res.json({
                 success: true,
                 msg: updTeacher
+            })
+
+        } catch (e) {
+            next(e);
+            res.json({
+                success: false,
+                msg: e
+            })
+        }
+    }
+
+    async getTargetMathTeachers(req: Request, res: Response, next: NextFunction) {
+        try {
+            const {startTime, endTime, day, subject, chatId, yearsOfExperience} = req.body;
+
+            const result = await Teacher_workhours.findAll({
+                include: [{
+                    model: Teacher,
+                    where: {
+                        yearsOfExperience: {
+                            [Op.gt]: yearsOfExperience
+                        }
+                    }
+                },
+                    {
+                        model: Lesson,
+                        where: {
+                            subject
+                        },
+                        include: [{
+                            model: Classroom,
+                            where: {
+                                chatId
+                            }
+                        }]
+                    }],
+                where: {
+                    timeStartLesson: {
+                        [Op.gte]: startTime,
+                        [Op.lte]: endTime
+                    },
+                    day
+                }
+            });
+            res.json({
+                success: true,
+                msg: result
             })
 
         } catch (e) {

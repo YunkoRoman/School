@@ -3,14 +3,11 @@ import {LessonStatic} from '../interfaces'
 
 export function LessonFactory(sequelize: Sequelize): LessonStatic {
 
-    return <LessonStatic>sequelize.define("lesson", {
+    return <LessonStatic>sequelize.define("lessons", {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
-        },
-        platform: {
-            type: DataTypes.STRING
         },
         classroomId: {
             type: DataTypes.INTEGER,
@@ -18,10 +15,6 @@ export function LessonFactory(sequelize: Sequelize): LessonStatic {
         },
         subject: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        teacherId: {
-            type: DataTypes.INTEGER,
             allowNull: false
         },
         url: {
