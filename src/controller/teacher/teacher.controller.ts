@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from "express";
-import {Classroom, Lesson, Teacher, Teacher_workhours} from '../../database'
 import {ITeacherAttributes, IteacherFilterAttributes} from "../../database/interfaces";
 import {teacherService} from "../../services/teacher";
 

@@ -53,8 +53,7 @@ create table teacher_workhours
 ![image](https://user-images.githubusercontent.com/47313744/104229197-9ba1f280-5454-11eb-8e4c-70991b67501c.png)
 ![image](https://user-images.githubusercontent.com/47313744/104229205-9e9ce300-5454-11eb-8c37-3d91e5161fb0.png)
 ![image](https://user-images.githubusercontent.com/47313744/104229216-a2306a00-5454-11eb-8caa-0f9ed4de6d44.png)
-![image](https://user-images.githubusercontent.com/47313744/104229536-14a14a00-5455-11eb-9111-d04d9ab544c9.png)
-
+![image](https://user-images.githubusercontent.com/47313744/104354657-2f85c400-5512-11eb-9374-526c533008de.png)
 Result function getTargetMathTeachers:
 
 ![image](https://user-images.githubusercontent.com/47313744/104229662-3ac6ea00-5455-11eb-8447-8d982f0fa539.png)
